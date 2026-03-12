@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.Stack;
 
 public class PalindromeCheckerApp {
 
@@ -10,37 +9,33 @@ public class PalindromeCheckerApp {
         System.out.print("Input: ");
         String input = sc.nextLine();
 
-        PalindromeStrategy strategy = new StackStrategy();
+        long startTime = System.nanoTime();
 
-        boolean result = strategy.check(input);
+        boolean result = isPalindrome(input);
+
+        long endTime = System.nanoTime();
+
+        long executionTime = endTime - startTime;
 
         System.out.println("Is Palindrome? : " + result);
+        System.out.println("Execution Time : " + executionTime + " ns");
 
         sc.close();
     }
-}
 
-interface PalindromeStrategy {
-    boolean check(String input);
-}
+    public static boolean isPalindrome(String str) {
 
-class StackStrategy implements PalindromeStrategy {
+        int start = 0;
+        int end = str.length() - 1;
 
-    public boolean check(String input) {
+        while (start < end) {
 
-        Stack<Character> stack = new Stack<>();
-
-        // push characters
-        for(char c : input.toCharArray()) {
-            stack.push(c);
-        }
-
-        // compare characters
-        for(char c : input.toCharArray()) {
-
-            if(c != stack.pop()) {
+            if (str.charAt(start) != str.charAt(end)) {
                 return false;
             }
+
+            start++;
+            end--;
         }
 
         return true;
