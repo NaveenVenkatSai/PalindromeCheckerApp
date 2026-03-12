@@ -1,16 +1,25 @@
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+
 public class PalindromeCheckerApp {
     public static boolean isPalindrome(String input) {
         input = input.replaceAll("\\s+", "").toLowerCase();
-        char[] chars = input.toCharArray();
-        int start = 0;
-        int end = chars.length - 1;
-        while (start < end) {
-            if (chars[start] != chars[end]) {
+        Queue<Character> queue = new LinkedList<>();
+        Stack<Character> stack = new Stack<>();
+        for (char ch : input.toCharArray()) {
+            queue.add(ch);   // FIFO
+            stack.push(ch);  // LIFO
+        }
+        while (!queue.isEmpty() && !stack.isEmpty()) {
+            char fromQueue = queue.remove(); // dequeue
+            char fromStack = stack.pop();    // pop
+
+            if (fromQueue != fromStack) {
                 return false;
             }
-            start++;
-            end--;
         }
+
         return true;
     }
     public static void main(String[] args) {
