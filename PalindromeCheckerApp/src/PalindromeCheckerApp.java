@@ -1,24 +1,41 @@
+import java.util.Scanner;
+
 public class PalindromeCheckerApp {
-    public static boolean isPalindrome(String input) {
-        String normalized = input.replaceAll("\\s+", "").toLowerCase();
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Input: ");
+        String input = sc.nextLine();
+
+        PalindromeService service = new PalindromeService();
+
+        boolean result = service.checkPalindrome(input);
+
+        System.out.println("Is Palindrome? : " + result);
+
+        sc.close();
+    }
+}
+
+class PalindromeService {
+
+    public boolean checkPalindrome(String input) {
+
         int start = 0;
-        int end = normalized.length() - 1;
+        int end = input.length() - 1;
+
         while (start < end) {
-            if (normalized.charAt(start) != normalized.charAt(end)) {
+
+            if (input.charAt(start) != input.charAt(end)) {
                 return false;
             }
+
             start++;
             end--;
         }
-        return true;
-    }
-    public static void main(String[] args) {
-        String test1 = "Never Odd Or Even";
-        String test2 = "Hello World";
-        String test3 = "A man a plan a canal Panama";
 
-        System.out.println(test1 + " -> " + isPalindrome(test1));
-        System.out.println(test2 + " -> " + isPalindrome(test2));
-        System.out.println(test3 + " -> " + isPalindrome(test3));
+        return true;
     }
 }
